@@ -9,5 +9,6 @@ class TaskDao:
         return task
 
     def get_tasks(self, collector_id: int, is_collected: bool) -> List[Task]:
-        return Task.objects.filter(collector_id=collector_id,
+        qs = Task.objects.filter(collector_id=collector_id,
                                    is_collected=is_collected)
+        return list(qs)

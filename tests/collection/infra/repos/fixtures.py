@@ -15,7 +15,7 @@ def create_collector(user=None):
     return Collector.objects.create(amount=0, user_id=user.id)
 
 
-def create_user():
+def create_user(suffix=""):
     return User.objects.create_user(
-        first_name="M", last_name="A", email="ma@g.com", password="12345"
+        first_name="M", last_name="A", email=f"ma{suffix}@g.com", password="12345"
     )
