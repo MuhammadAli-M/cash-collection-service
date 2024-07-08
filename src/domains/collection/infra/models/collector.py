@@ -1,5 +1,5 @@
 from django.db import models
-from domains.collection.infra.repos.user import User
+from domains.collection.infra.models.user import User
 
 
 class Collector(models.Model):

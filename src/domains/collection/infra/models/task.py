@@ -1,5 +1,5 @@
 from django.db import models
-from domains.collection.infra.repos.collector import Collector
+from domains.collection.infra.models.collector import Collector
 
 
 class Task(models.Model):

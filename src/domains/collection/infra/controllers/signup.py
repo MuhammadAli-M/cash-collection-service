@@ -1,7 +1,7 @@
 import logging
 from http import HTTPStatus
 
-from domains.collection.infra.repos.user import User
+from domains.collection.infra.models.user import User
 
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny

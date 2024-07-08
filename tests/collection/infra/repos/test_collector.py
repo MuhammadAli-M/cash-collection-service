@@ -1,8 +1,7 @@
-from domains.collection.infra.repos.collector import Collector
-from domains.collection.infra.repos.user import User
+from domains.collection.infra.models.collector import Collector
 
 from django.test import TestCase
-from tests.collection.infra.repos.fixtures.user import create_user
+from tests.collection.infra.repos.fixtures import create_user
 
 
 class CollectorTest(TestCase):
