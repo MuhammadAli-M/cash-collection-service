@@ -27,7 +27,7 @@ migrate-reset:
 	python src/server/manage.py migrate $(name) zero
 
 lint:
-	tunck fmt
+	trunk fmt
 
 clean:
 	rm -r .venv
