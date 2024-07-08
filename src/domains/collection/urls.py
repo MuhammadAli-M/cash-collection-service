@@ -2,8 +2,7 @@ from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from domains.collection.infra.controllers.signup import SignupAPIView
-from domains.collection.infra.controllers.tasks_retrieval import \
-    TasksRetrievalAPIView
+from domains.collection.infra.controllers.tasks_retrieval import TasksRetrievalAPIView
 
 urlpatterns = [
     path("tasks/", TasksRetrievalAPIView.as_view(), name="tasks"),

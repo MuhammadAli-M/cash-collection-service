@@ -2,8 +2,7 @@ from django.test import TestCase
 
 from domains.collection.infra.models.task import Task
 from tests.collection.common.datetime_helper import get_datetime_after_week
-from tests.collection.infra.repos.fixtures import create_collector, \
-    create_customer
+from tests.collection.infra.repos.fixtures import create_collector, create_customer
 
 
 class TaskTest(TestCase):
