@@ -47,7 +47,7 @@ class TasksRetrievalAPITests(TestCase):
         access_token = signup_response["token"]["access"]
         user_id = signup_response["user"]["id"]
         collector = Collector.objects.create(
-            amount=50, user_id=user_id, is_frozen=False
+            amount=50, user_id=user_id,
         )
         task1 = create_task(collector=collector, is_collected=True)
         task2 = create_task(collector=collector, is_collected=False)
