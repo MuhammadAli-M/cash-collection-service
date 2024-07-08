@@ -26,6 +26,9 @@ migrate-reset:
 	# usage: make migrate-reset name=<app name>
 	python src/server/manage.py migrate $(name) zero
 
+lint:
+	tunck fmt
+
 clean:
 	rm -r .venv
 
