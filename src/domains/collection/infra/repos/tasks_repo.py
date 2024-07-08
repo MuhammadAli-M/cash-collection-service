@@ -1,7 +1,7 @@
 from typing import List
 
 from domains.collection.contracts.tasks_repo import ITasksRepo
-from domains.collection.entities.task import CollectorID, Task
+from domains.collection.entities.task import Task
 from domains.collection.infra.models.task import Task as TaskDbo
 from domains.collection.infra.repos.tasks_dao import TasksDao
 
@@ -24,6 +24,9 @@ class TasksRepo(ITasksRepo):
         """
         return Task(
             id=dbo.id,
+            amount_due=dbo.amount_due,
+            amount_due_at=dbo.amount_due_at,
+            customer_id=dbo.customer_id,
             collector_id=dbo.collector_id,
             is_collected=dbo.is_collected,
             created_at=dbo.created_at,
@@ -35,6 +38,9 @@ class TasksRepo(ITasksRepo):
         Convert to dbo(database object)
         """
         return TaskDbo(
+            amount_due=domain.amount_due,
+            amount_due_at=domain.amount_due_at,
+            customer_id=domain.customer_id,
             collector_id=domain.collector_id,
             is_collected=domain.is_collected,
             created_at=domain.created_at,

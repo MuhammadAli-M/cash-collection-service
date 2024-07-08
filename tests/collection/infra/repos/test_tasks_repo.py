@@ -1,6 +1,9 @@
 from unittest import TestCase
 from unittest.mock import MagicMock, Mock
 
+from collection.common import datetime_helper
+from collection.common.datetime_helper import get_datetime_after_week
+from collection.entities.fixtures import create_task
 from domains.collection.entities.task import Task
 from domains.collection.infra.repos.tasks_dao import TasksDao
 from domains.collection.infra.repos.tasks_repo import TasksRepo
@@ -10,8 +13,7 @@ class TasksRepoTest(TestCase):
 
     def test_save_task_works(self):
         # arrange
-        collector_id = 1
-        task = Task(collector_id=collector_id, is_collected=True)
+        task = create_task()
         dao_mock = Mock(spec=TasksDao)
         saved_task_mock = task.copy(update=dict(id=2))
         dao_mock.save_task = MagicMock(return_value=saved_task_mock)
@@ -31,8 +33,7 @@ class TasksRepoTest(TestCase):
 
     def test_get_tasks_works(self):
         # arrange
-        collector_id = 1
-        task = Task(collector_id=collector_id, is_collected=True)
+        task = create_task()
         dao_mock = Mock(spec=TasksDao)
         dao_mock.get_tasks = MagicMock(return_value=[task])
         repo = TasksRepo(dao=dao_mock)

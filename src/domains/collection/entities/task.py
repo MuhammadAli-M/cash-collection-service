@@ -1,11 +1,11 @@
-from dataclasses import dataclass
 from datetime import datetime
 from typing import Optional
 
 from pydantic import BaseModel
 
 CollectorID = int
-
+CustomerID = int
+Money = int
 
 class BaseEntity(BaseModel):
     id: Optional[int] = None
@@ -14,5 +14,8 @@ class BaseEntity(BaseModel):
 
 
 class Task(BaseEntity):
+    amount_due: Money
+    amount_due_at: datetime
+    customer_id: CustomerID
     collector_id: CollectorID
     is_collected: bool = False
