@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from typing import List
 
 from pydantic import BaseModel
@@ -8,7 +9,7 @@ from domains.collection.infra.repos.tasks_repo import TasksRepo
 
 
 class TasksRetrievalRequest(BaseModel):
-    collector_id: int
+    user_id: int
 
 
 class TasksRetrievalResponse(BaseModel):
@@ -21,7 +22,7 @@ class TasksRetrieval:
         self.repo = repo
 
     def execute(self, request: TasksRetrievalRequest) -> TasksRetrievalResponse:
-        tasks = self.repo.get_tasks(collector_id=request.collector_id,
+        tasks = self.repo.get_tasks(user_id=request.user_id,
                                     is_collected=False)
-
+        print(f"maa: tasks: {tasks}")
         return TasksRetrievalResponse(tasks=tasks)
