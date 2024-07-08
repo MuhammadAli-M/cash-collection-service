@@ -22,6 +22,10 @@ migrations:
 migrate:
 	python src/server/manage.py migrate
 
+migrate-reset:
+	# usage: make migrate-reset name=<app name>
+	python src/server/manage.py migrate $(name) zero
+
 clean:
 	rm -r .venv
 
