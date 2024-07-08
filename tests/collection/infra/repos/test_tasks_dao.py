@@ -18,8 +18,7 @@ class TasksDaoTest(TestCase):
         task2_c2 = Task.objects.create(collector_id=collector2.id, is_collected=False)
 
         # act
-        tasks = TasksDao().get_tasks(collector_id=collector1.id,
-                                     is_collected=False)
+        tasks = TasksDao().get_tasks(collector_id=collector1.id, is_collected=False)
 
         # assert
         self.assertEqual(len(tasks), 1)

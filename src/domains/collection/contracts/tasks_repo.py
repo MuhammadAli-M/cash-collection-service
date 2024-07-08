@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from domains.collection.entities.task import Task, CollectorID
+from domains.collection.entities.task import CollectorID, Task
 
 
 class ITasksRepo(ABC):
@@ -11,6 +11,5 @@ class ITasksRepo(ABC):
         raise NotImplemented()
 
     @abstractmethod
-    def get_tasks(self, collector_id: CollectorID, is_collected: bool) -> List[
-        Task]:
+    def get_tasks(self, collector_id: CollectorID, is_collected: bool) -> List[Task]:
         raise NotImplemented()

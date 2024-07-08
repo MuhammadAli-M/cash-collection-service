@@ -1,7 +1,7 @@
 from typing import List
 
 from domains.collection.contracts.tasks_repo import ITasksRepo
-from domains.collection.entities.task import Task, CollectorID
+from domains.collection.entities.task import CollectorID, Task
 from domains.collection.infra.models.task import Task as TaskDbo
 from domains.collection.infra.repos.tasks_dao import TasksDao
 
