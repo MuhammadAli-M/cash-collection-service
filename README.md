@@ -12,7 +12,7 @@ This repo is a solution implementation to the cash collector problem.
 
 ## High-level Design
 
-![cashcollector_HLD.png](docs/cashcollector_HLD.png)
+![high_level_design.png](docs/high_level_design.png)
 
 ## Approaches
 
