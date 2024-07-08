@@ -1,4 +1,4 @@
-from collection.common.datetime_helper import get_datetime_after_week
+from tests.collection.common.datetime_helper import get_datetime_after_week
 from domains.collection.entities.task import Task
 
 
