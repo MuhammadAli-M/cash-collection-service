@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 from domains.collection.infra.models.task import Task
-from domains.collection.infra.repos.tasks_dao import TaskDao
+from domains.collection.infra.repos.tasks_dao import TasksDao
 from tests.collection.infra.repos.fixtures import create_collector, create_user
 
 
@@ -18,8 +18,8 @@ class TasksDaoTest(TestCase):
         task2_c2 = Task.objects.create(collector_id=collector2.id, is_collected=False)
 
         # act
-        tasks = TaskDao().get_tasks(collector_id=collector1.id,
-                                    is_collected=False)
+        tasks = TasksDao().get_tasks(collector_id=collector1.id,
+                                     is_collected=False)
 
         # assert
         self.assertEqual(len(tasks), 1)

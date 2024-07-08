@@ -3,11 +3,11 @@ from typing import List
 from domains.collection.contracts.tasks_repo import ITasksRepo
 from domains.collection.entities.task import Task, CollectorID
 from domains.collection.infra.models.task import Task as TaskDbo
-from domains.collection.infra.repos.tasks_dao import TaskDao
+from domains.collection.infra.repos.tasks_dao import TasksDao
 
 
 class TasksRepo(ITasksRepo):
-    def __init__(self, dao=TaskDao()):
+    def __init__(self, dao=TasksDao()):
         self.dao = dao
 
     def save_task(self, domain: Task) -> Task:

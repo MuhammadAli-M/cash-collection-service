@@ -3,7 +3,7 @@ from unittest.mock import Mock, MagicMock
 from django.test import TestCase
 
 from domains.collection.entities.task import Task
-from domains.collection.infra.repos.tasks_dao import TaskDao
+from domains.collection.infra.repos.tasks_dao import TasksDao
 from domains.collection.infra.repos.tasks_repo import TasksRepo
 from tests.collection.infra.repos.fixtures import create_collector
 
@@ -28,7 +28,7 @@ class TasksRepoTest(TestCase):
         # arrange
         collector = create_collector()
         task = Task(collector_id=collector.id, is_collected=True)
-        dao_mock = Mock(spec=TaskDao)
+        dao_mock = Mock(spec=TasksDao)
         dao_mock.get_tasks = MagicMock(return_value=[task])
         repo = TasksRepo(dao=dao_mock)
 

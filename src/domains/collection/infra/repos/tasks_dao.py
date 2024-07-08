@@ -3,7 +3,7 @@ from typing import List
 from domains.collection.infra.models.task import Task
 
 
-class TaskDao:
+class TasksDao:
     def save_task(self, task: Task) -> Task:
         task.save()
         return task
