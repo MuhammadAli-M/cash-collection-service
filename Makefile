@@ -15,6 +15,13 @@ test:
 	source .venv/bin/activate; \
 	python src/server/manage.py test
 
+
+migrations:
+	python src/server/manage.py makemigrations
+
+migrate:
+	python src/server/manage.py migrate
+
 clean:
 	rm -r .venv
 
