@@ -7,6 +7,7 @@ CollectorID = int
 CustomerID = int
 Money = int
 
+
 class BaseEntity(BaseModel):
     id: Optional[int] = None
     created_at: Optional[datetime] = None

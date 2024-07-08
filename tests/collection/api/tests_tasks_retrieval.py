@@ -4,21 +4,24 @@ from django.test import TestCase
 from django.urls import reverse
 from rest_framework.test import APIClient
 
-from tests.collection.infra.repos.fixtures import create_task
 from domains.collection.infra.models.collector import Collector
 from domains.collection.infra.models.task import Task
+from tests.collection.infra.repos.fixtures import create_task
 
 
 class TasksRetrievalAPITests(TestCase):
     tasks_endpoint = reverse("tasks")
 
     def signup(self, client):
-        response = client.post(reverse("signup"), data={
-            "first_name": "Muhammad",
-            "last_name": "Ahmed",
-            "email": "ma@g.com",
-            "password": "xcash12345"
-        })
+        response = client.post(
+            reverse("signup"),
+            data={
+                "first_name": "Muhammad",
+                "last_name": "Ahmed",
+                "email": "ma@g.com",
+                "password": "xcash12345",
+            },
+        )
         self.assertEqual(response.status_code, HTTPStatus.OK)
         return response.data["data"]
 
@@ -29,10 +32,10 @@ class TasksRetrievalAPITests(TestCase):
         access_token = signup_response["token"]["access"]
 
         # act
-        response = client.get(self.tasks_endpoint,
-                              headers={
-                                  "Authorization": f"Bearer {access_token}"},
-                              )
+        response = client.get(
+            self.tasks_endpoint,
+            headers={"Authorization": f"Bearer {access_token}"},
+        )
 
         # assert
         self.assertEqual(response.status_code, HTTPStatus.OK)
@@ -44,17 +47,18 @@ class TasksRetrievalAPITests(TestCase):
         signup_response = self.signup(client)
         access_token = signup_response["token"]["access"]
         user_id = signup_response["user"]["id"]
-        collector = Collector.objects.create(amount=50, user_id=user_id,
-                                             is_frozen=False)
+        collector = Collector.objects.create(
+            amount=50, user_id=user_id, is_frozen=False
+        )
         task1 = create_task(collector=collector, is_collected=True)
         task2 = create_task(collector=collector, is_collected=False)
         task3 = create_task(collector=collector, is_collected=True)
 
         # act
-        response = client.get(self.tasks_endpoint,
-                              headers={
-                                  "Authorization": f"Bearer {access_token}"},
-                              )
+        response = client.get(
+            self.tasks_endpoint,
+            headers={"Authorization": f"Bearer {access_token}"},
+        )
 
         # assert
         self.assertEqual(response.status_code, HTTPStatus.OK)

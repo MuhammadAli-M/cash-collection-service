@@ -1,12 +1,13 @@
-from unittest.mock import Mock, MagicMock
-
 from unittest import TestCase
+from unittest.mock import MagicMock, Mock
 
-from tests.collection.entities.fixtures import create_task
 from domains.collection.entities.task import Task
 from domains.collection.infra.repos.tasks_repo import TasksRepo
-from domains.collection.infra.usecases.tasks_retrieval import TasksRetrieval, \
-    TasksRetrievalRequest
+from domains.collection.infra.usecases.tasks_retrieval import (
+    TasksRetrieval,
+    TasksRetrievalRequest,
+)
+from tests.collection.entities.fixtures import create_task
 
 
 class TasksRetrievalTests(TestCase):
@@ -23,7 +24,4 @@ class TasksRetrievalTests(TestCase):
 
         # assert
         self.assertEqual(response.tasks, tasks)
-        repo_mock.get_tasks.assert_called_once_with(
-            user_id=1,
-            is_collected=True
-        )
+        repo_mock.get_tasks.assert_called_once_with(user_id=1, is_collected=True)

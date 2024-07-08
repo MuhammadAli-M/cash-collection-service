@@ -1,9 +1,8 @@
 from django.test import TestCase
 
-from tests.collection.common.datetime_helper import get_datetime_after_week
 from domains.collection.infra.models.task import Task
-from tests.collection.infra.repos.fixtures import create_collector, \
-    create_customer
+from tests.collection.common.datetime_helper import get_datetime_after_week
+from tests.collection.infra.repos.fixtures import create_collector, create_customer
 
 
 class TaskTest(TestCase):
@@ -17,7 +16,7 @@ class TaskTest(TestCase):
             amount_due_at=some_datetime,
             collector=collector,
             customer=customer,
-            is_collected=False
+            is_collected=False,
         )
         self.assertIsNotNone(task.id)
         self.assertEqual(task.amount_due, 50)
