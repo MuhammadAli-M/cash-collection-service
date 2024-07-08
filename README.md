@@ -81,3 +81,31 @@ make build
 ### Tools
 
 - Install [Trunk](https://docs.trunk.io/check/usage#install-the-cli) for linting
+
+### Project Structure
+
+The project structure is influenced by __clean architecture__.
+
+#### Clean Architecture Influence:
+
+- Mainly, each Django app should have the following structure:
+
+   - entities
+   - usecases
+   - contracts
+   - infra
+   - controllers
+   - models
+   - repositories
+   - migrations
+
+- Most requests would sequentially pass through multiple layers.
+   - infra/controllers/{endpoint_name}\_api.py
+   - usecases/{usecase_name}.py
+   - entities/{entity_name}.py
+   - infra/repos/{repo_name}\_repo.py
+   - infra/repos/{dao_name}\_dao.py
+   - infra/models/{model}.py
+
+Also, there is the `/tests` directory that contains the test files with
+mirroring the structure for the `/src` that contains the code.
