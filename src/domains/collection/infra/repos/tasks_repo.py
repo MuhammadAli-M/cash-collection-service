@@ -1,5 +1,7 @@
+from typing import List
+
 from domains.collection.contracts.tasks_repo import ITasksRepo
-from domains.collection.entities.task import Task
+from domains.collection.entities.task import Task, CollectorID
 from domains.collection.infra.models.task import Task as TaskDbo
 from domains.collection.infra.repos.tasks_dao import TaskDao
 
@@ -11,6 +13,9 @@ class TasksRepo(ITasksRepo):
     def save_task(self, domain: Task) -> Task:
         dbo = self.to_dbo(domain)
         return self.dao.save_task(dbo)
+
+    def get_tasks(self, collector_id: CollectorID, is_collected: bool) -> List[Task]:
+        return self.dao.get_tasks(collector_id, is_collected)
 
     def to_domain(self, dbo: TaskDbo) -> Task:
         """
