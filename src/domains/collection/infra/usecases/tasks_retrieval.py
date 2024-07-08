@@ -23,6 +23,5 @@ class TasksRetrieval:
 
     def execute(self, request: TasksRetrievalRequest) -> TasksRetrievalResponse:
         tasks = self.repo.get_tasks(user_id=request.user_id,
-                                    is_collected=False)
-        print(f"maa: tasks: {tasks}")
+                                    is_collected=True)
         return TasksRetrievalResponse(tasks=tasks)

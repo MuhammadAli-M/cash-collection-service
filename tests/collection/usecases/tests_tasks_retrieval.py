@@ -24,5 +24,5 @@ class TasksRetrievalTests(TestCase):
         self.assertEqual(response.tasks, tasks)
         repo_mock.get_tasks.assert_called_once_with(
             user_id=1,
-            is_collected=False
+            is_collected=True
         )
