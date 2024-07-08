@@ -3,10 +3,7 @@ from django.test import TestCase
 from domains.collection.infra.models.status import Status
 from domains.collection.infra.repos.status_dao import StatusDao
 from tests.collection.common.datetime_helper import get_datetime_after_week
-from tests.collection.infra.repos.fixtures import (
-    create_collector,
-    create_user,
-)
+from tests.collection.infra.repos.fixtures import create_collector, create_user
 
 
 class StatusEventsDaoTest(TestCase):
@@ -50,9 +47,9 @@ class StatusEventsDaoTest(TestCase):
         )
 
         # act
-        status = StatusDao().get_latest(collector_id=collector1.id,
-                                        is_active=True,
-                                        is_frozen=True)
+        status = StatusDao().get_latest(
+            collector_id=collector1.id, is_active=True, is_frozen=True
+        )
 
         # assert
         self.assertEqual(status, status3_c1)

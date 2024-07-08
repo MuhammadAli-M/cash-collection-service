@@ -84,28 +84,28 @@ make build
 
 ### Project Structure
 
-The project structure is influenced by __clean architecture__.
+The project structure is influenced by **clean architecture**.
 
 #### Clean Architecture Influence:
 
 - Mainly, each Django app should have the following structure:
 
-   - entities
-   - usecases
-   - contracts
-   - infra
-   - controllers
-   - models
-   - repositories
-   - migrations
+  - entities
+  - usecases
+  - contracts
+  - infra
+  - controllers
+  - models
+  - repositories
+  - migrations
 
 - Most requests would sequentially pass through multiple layers.
-   - infra/controllers/{endpoint_name}\_api.py
-   - usecases/{usecase_name}.py
-   - entities/{entity_name}.py
-   - infra/repos/{repo_name}\_repo.py
-   - infra/repos/{dao_name}\_dao.py
-   - infra/models/{model}.py
+  - infra/controllers/{endpoint_name}\_api.py
+  - usecases/{usecase_name}.py
+  - entities/{entity_name}.py
+  - infra/repos/{repo_name}\_repo.py
+  - infra/repos/{dao_name}\_dao.py
+  - infra/models/{model}.py
 
 Also, there is the `/tests` directory that contains the test files with
 mirroring the structure for the `/src` that contains the code.
