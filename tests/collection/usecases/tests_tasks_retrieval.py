@@ -2,6 +2,7 @@ from unittest.mock import Mock, MagicMock
 
 from unittest import TestCase
 
+from tests.collection.entities.fixtures import create_task
 from domains.collection.entities.task import Task
 from domains.collection.infra.repos.tasks_repo import TasksRepo
 from domains.collection.infra.usecases.tasks_retrieval import TasksRetrieval, \
@@ -14,7 +15,7 @@ class TasksRetrievalTests(TestCase):
         # arrange
         request = TasksRetrievalRequest(user_id=1)
         repo_mock = Mock(spec=TasksRepo)
-        tasks = [Task(collector_id=1), Task(collector_id=2)]
+        tasks = [create_task(), create_task()]
         repo_mock.get_tasks = MagicMock(return_value=tasks)
 
         # act
