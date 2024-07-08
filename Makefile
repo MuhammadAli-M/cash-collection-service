@@ -15,6 +15,20 @@ test:
 	source .venv/bin/activate; \
 	python src/server/manage.py test
 
+
+migrations:
+	python src/server/manage.py makemigrations
+
+migrate:
+	python src/server/manage.py migrate
+
+migrate-reset:
+	# usage: make migrate-reset name=<app name>
+	python src/server/manage.py migrate $(name) zero
+
+lint:
+	trunk fmt
+
 clean:
 	rm -r .venv
 
