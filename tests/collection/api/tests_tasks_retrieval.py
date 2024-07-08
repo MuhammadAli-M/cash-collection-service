@@ -4,6 +4,7 @@ from django.test import TestCase
 from django.urls import reverse
 from rest_framework.test import APIClient
 
+from tests.collection.infra.repos.fixtures import create_task
 from domains.collection.infra.models.collector import Collector
 from domains.collection.infra.models.task import Task
 
@@ -45,9 +46,9 @@ class TasksRetrievalAPITests(TestCase):
         user_id = signup_response["user"]["id"]
         collector = Collector.objects.create(amount=50, user_id=user_id,
                                              is_frozen=False)
-        task1 = Task.objects.create(collector=collector, is_collected=True)
-        task2 = Task.objects.create(collector=collector, is_collected=False)
-        task3 = Task.objects.create(collector=collector, is_collected=True)
+        task1 = create_task(collector=collector, is_collected=True)
+        task2 = create_task(collector=collector, is_collected=False)
+        task3 = create_task(collector=collector, is_collected=True)
 
         # act
         response = client.get(self.tasks_endpoint,
