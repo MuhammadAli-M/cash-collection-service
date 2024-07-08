@@ -1,33 +1,38 @@
+from unittest import TestCase
 from unittest.mock import MagicMock, Mock
-
-from django.test import TestCase
 
 from domains.collection.entities.task import Task
 from domains.collection.infra.repos.tasks_dao import TasksDao
 from domains.collection.infra.repos.tasks_repo import TasksRepo
-from tests.collection.infra.repos.fixtures import create_collector
 
 
 class TasksRepoTest(TestCase):
 
     def test_save_task_works(self):
         # arrange
-        collector = create_collector()
-        task = Task(collector_id=collector.id, is_collected=True)
-        repo = TasksRepo()
+        collector_id = 1
+        task = Task(collector_id=collector_id, is_collected=True)
+        dao_mock = Mock(spec=TasksDao)
+        saved_task_mock = task.copy(update=dict(id=2))
+        dao_mock.save_task = MagicMock(return_value=saved_task_mock)
+        repo = TasksRepo(dao=dao_mock)
 
         # act
         saved_task = repo.save_task(task)
 
         # assert
-        self.assertIsNotNone(saved_task.id)
-        self.assertEqual(saved_task.is_collected, True)
-        self.assertEqual(saved_task.collector_id, collector.id)
+        self.assertEqual(saved_task.id, saved_task_mock.id)
+        dao_mock.save_task.assert_called_once()
+
+        # 0 first argument of the function, 0 first argument of the tuple
+        captured_task = dao_mock.save_task.call_args[0][0]
+        self.assertEqual(captured_task.collector_id, task.collector_id)
+        self.assertEqual(captured_task.is_collected, task.is_collected)
 
     def test_get_tasks_works(self):
         # arrange
-        collector = create_collector()
-        task = Task(collector_id=collector.id, is_collected=True)
+        collector_id = 1
+        task = Task(collector_id=collector_id, is_collected=True)
         dao_mock = Mock(spec=TasksDao)
         dao_mock.get_tasks = MagicMock(return_value=[task])
         repo = TasksRepo(dao=dao_mock)
