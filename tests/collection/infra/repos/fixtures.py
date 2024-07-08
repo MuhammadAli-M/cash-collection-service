@@ -1,13 +1,20 @@
+from tests.collection.common.datetime_helper import get_datetime_after_week
 from domains.collection.infra.models.collector import Collector
 from domains.collection.infra.models.customer import Customer
 from domains.collection.infra.models.task import Task
 from domains.collection.infra.models.user import User
 
 
-def create_task(collector=None):
+def create_task(collector=None, customer=None, is_collected=False):
     if collector is None:
         collector = create_collector()
-    return Task.objects.create(collector_id=collector.id)
+    if customer is None:
+        customer = create_customer()
+    return Task.objects.create(amount_due=50,
+                               amount_due_at=get_datetime_after_week(),
+                               collector_id=collector.id,
+                               customer_id=customer.id,
+                               is_collected=is_collected)
 
 
 def create_customer() -> Customer:

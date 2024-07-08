@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from collection.common.datetime_helper import get_datetime_after_week
+from tests.collection.common.datetime_helper import get_datetime_after_week
 from domains.collection.infra.models.task import Task
 from domains.collection.infra.repos.tasks_dao import TasksDao
 from tests.collection.infra.repos.fixtures import create_collector, create_user, \
