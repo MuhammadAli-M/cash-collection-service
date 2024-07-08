@@ -11,5 +11,5 @@ class ITasksRepo(ABC):
         raise NotImplemented()
 
     @abstractmethod
-    def get_tasks(self, collector_id: CollectorID, is_collected: bool) -> List[Task]:
+    def get_tasks(self, user_id: int, is_collected: bool) -> List[Task]:
         raise NotImplemented()

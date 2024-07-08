@@ -9,7 +9,8 @@ class TasksDaoTest(TestCase):
 
     def test_get_tasks_works(self):
         # arrange
-        collector1 = create_collector(user=create_user(suffix="1"))
+        user1 = create_user(suffix="1")
+        collector1 = create_collector(user=user1)
         task1_c1 = Task.objects.create(collector_id=collector1.id, is_collected=True)
         task2_c1 = Task.objects.create(collector_id=collector1.id, is_collected=False)
 
@@ -18,7 +19,7 @@ class TasksDaoTest(TestCase):
         task2_c2 = Task.objects.create(collector_id=collector2.id, is_collected=False)
 
         # act
-        tasks = TasksDao().get_tasks(collector_id=collector1.id, is_collected=False)
+        tasks = TasksDao().get_tasks(user_id=user1.id, is_collected=False)
 
         # assert
         self.assertEqual(len(tasks), 1)

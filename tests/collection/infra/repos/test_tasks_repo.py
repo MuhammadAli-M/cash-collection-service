@@ -38,7 +38,7 @@ class TasksRepoTest(TestCase):
         repo = TasksRepo(dao=dao_mock)
 
         # act
-        tasks = repo.get_tasks(collector_id=1, is_collected=False)
+        tasks = repo.get_tasks(user_id=1, is_collected=False)
 
         # assert
         self.assertEqual(tasks, [task])

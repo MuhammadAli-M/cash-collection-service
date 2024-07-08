@@ -14,8 +14,8 @@ class TasksRepo(ITasksRepo):
         dbo = self.to_dbo(domain)
         return self.dao.save_task(dbo)
 
-    def get_tasks(self, collector_id: CollectorID, is_collected: bool) -> List[Task]:
-        return self.dao.get_tasks(collector_id, is_collected)
+    def get_tasks(self, user_id: CollectorID, is_collected: bool) -> List[Task]:
+        return self.dao.get_tasks(user_id, is_collected)
 
     def to_domain(self, dbo: TaskDbo) -> Task:
         """
