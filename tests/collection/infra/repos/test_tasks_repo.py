@@ -12,8 +12,7 @@ class TasksRepoTest(TestCase):
     def test_save_task_works(self):
         collector = create_collector()
 
-        task = Task(collector_id=collector.id,
-                    is_collected=True)
+        task = Task(collector_id=collector.id, is_collected=True)
 
         repo = TasksRepo()
         saved_task = repo.save_task(task)

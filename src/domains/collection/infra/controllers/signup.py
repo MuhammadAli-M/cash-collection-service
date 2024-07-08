@@ -1,12 +1,12 @@
 import logging
 from http import HTTPStatus
 
-from domains.collection.infra.models.user import User
-
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
+
+from domains.collection.infra.models.user import User
 
 
 class SignupAPIView(GenericAPIView):
@@ -26,14 +26,18 @@ class SignupAPIView(GenericAPIView):
 
             refresh = RefreshToken.for_user(user)
 
-            return Response({"data": {
-                "user": {"id": user.id},
-                "token": {
-                    'refresh': str(refresh),
-                    'access': str(refresh.access_token),
-                }
-            }},
-                status=HTTPStatus.OK)
+            return Response(
+                {
+                    "data": {
+                        "user": {"id": user.id},
+                        "token": {
+                            "refresh": str(refresh),
+                            "access": str(refresh.access_token),
+                        },
+                    }
+                },
+                status=HTTPStatus.OK,
+            )
         except Exception as exc:
             logging.error(f"uncaught exception: {exc}")
             raise exc
