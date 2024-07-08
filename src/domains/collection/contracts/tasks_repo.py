@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from domains.collection.entities.task import CollectorID, Task
+from domains.collection.entities.task import Task
 
 
 class ITasksRepo(ABC):

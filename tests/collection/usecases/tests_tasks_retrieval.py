@@ -1,7 +1,6 @@
 from unittest import TestCase
 from unittest.mock import MagicMock, Mock
 
-from domains.collection.entities.task import Task
 from domains.collection.infra.repos.tasks_repo import TasksRepo
 from domains.collection.infra.usecases.tasks_retrieval import (
     TasksRetrieval,

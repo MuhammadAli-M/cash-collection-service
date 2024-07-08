@@ -1,11 +1,8 @@
 from unittest import TestCase
 from unittest.mock import MagicMock, Mock
 
-from domains.collection.entities.task import Task
 from domains.collection.infra.repos.tasks_dao import TasksDao
 from domains.collection.infra.repos.tasks_repo import TasksRepo
-from tests.collection.common import datetime_helper
-from tests.collection.common.datetime_helper import get_datetime_after_week
 from tests.collection.entities.fixtures import create_task
 
 

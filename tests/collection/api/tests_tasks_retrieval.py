@@ -5,7 +5,6 @@ from django.urls import reverse
 from rest_framework.test import APIClient
 
 from domains.collection.infra.models.collector import Collector
-from domains.collection.infra.models.task import Task
 from tests.collection.infra.repos.fixtures import create_task
 
 
