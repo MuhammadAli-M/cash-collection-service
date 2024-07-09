@@ -131,9 +131,8 @@ it's frozen.
 
 ### Getting Started
 
-1. Create virtual environment and install requirements ```make build```.
-2. Make sure there is a sqlite3 database named "db.sqlite3" inside src/server.
-3. Start the server `make run`.
+1. Create virtual environment and install requirements by calling ```make build```.
+2. Start the server `make run`.
 
 Also, there is `make tests` to run tests.
 ### Tools
