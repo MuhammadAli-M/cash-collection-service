@@ -46,8 +46,11 @@ class TasksRetrievalAPITests(TestCase):
         signup_response = self.signup(client)
         access_token = signup_response["token"]["access"]
         user_id = signup_response["user"]["id"]
+        # TODO: Remove this database model creation after integrating api
+        #  to create collectors and tasks
         collector = Collector.objects.create(
-            amount=50, user_id=user_id, is_frozen=False
+            amount=50,
+            user_id=user_id,
         )
         task1 = create_task(collector=collector, is_collected=True)
         task2 = create_task(collector=collector, is_collected=False)
