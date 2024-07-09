@@ -9,6 +9,7 @@ build: venv/init
 	python -m pip install -e src/
 
 run:
+	source .venv/bin/activate; \
 	python src/server/manage.py runserver;
 
 test:
