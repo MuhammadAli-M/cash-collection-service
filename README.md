@@ -114,8 +114,8 @@ it's frozen.
 ## Deliverables
 - [x] Database models
 - [ ] View collector's status at different time points.
-- [x] /tasks
-- [ ] collect
+- [x] tasks/
+- [ ] collect/
 - [ ] next_task/
 - [ ] status/
 - [ ] pay/
