@@ -39,11 +39,12 @@ def create_user(suffix=""):
     )
 
 
-def create_status(is_frozen: bool,
-                  is_active: bool,
-                  collector=None,
-                  due_at=get_datetime_after_week(),
-                  ):
+def create_status(
+    is_frozen: bool,
+    is_active: bool,
+    collector=None,
+    due_at=get_datetime_after_week(),
+):
     if collector is None:
         collector = create_collector()
 

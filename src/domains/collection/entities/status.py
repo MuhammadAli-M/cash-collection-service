@@ -10,7 +10,6 @@ class Status(BaseEntity):
     is_frozen: bool
     is_active: bool
 
-
     def is_frozen_due(self) -> bool:
         is_due = datetime.now() > self.due_at
         return self.is_frozen and self.is_active and is_due

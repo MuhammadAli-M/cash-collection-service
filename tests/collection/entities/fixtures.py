@@ -1,4 +1,4 @@
-from datetime import datetime, UTC
+from datetime import UTC, datetime
 
 from domains.collection.entities.status import Status
 from domains.collection.entities.task import Task
@@ -22,12 +22,12 @@ def create_task(
 
 
 def create_status(
-        is_frozen: bool,
-        is_active: bool,
-        collector_id=1,
-        due_at=get_datetime_after_week(),
-        created_at=datetime.now(UTC),
-        updated_at=datetime.now(UTC),
+    is_frozen: bool,
+    is_active: bool,
+    collector_id=1,
+    due_at=get_datetime_after_week(),
+    created_at=datetime.now(UTC),
+    updated_at=datetime.now(UTC),
 ):
     return Status(
         is_frozen=is_frozen,
@@ -35,5 +35,5 @@ def create_status(
         collector_id=collector_id,
         due_at=due_at,
         created_at=created_at,
-        udpated_at=updated_at
+        udpated_at=updated_at,
     )
