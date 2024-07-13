@@ -1,5 +1,6 @@
 from domains.collection.infra.models.collector import Collector
 from domains.collection.infra.models.customer import Customer
+from domains.collection.infra.models.status import Status
 from domains.collection.infra.models.task import Task
 from domains.collection.infra.models.user import User
 from tests.collection.common.datetime_helper import get_datetime_after_week
@@ -35,4 +36,20 @@ def create_collector(user=None):
 def create_user(suffix=""):
     return User.objects.create_user(
         first_name="M", last_name="A", email=f"ma{suffix}@g.com", password="12345"
+    )
+
+
+def create_status(is_frozen: bool,
+                  is_active: bool,
+                  collector=None,
+                  due_at=get_datetime_after_week(),
+                  ):
+    if collector is None:
+        collector = create_collector()
+
+    return Status.objects.create(
+        is_frozen=is_frozen,
+        is_active=is_active,
+        collector_id=collector.id,
+        due_at=due_at,
     )
