@@ -162,3 +162,6 @@ The project structure is influenced by **clean architecture**.
 
 Also, there is the `/tests` directory that contains the test files with
 mirroring the structure for the `/src` that contains the code.
+
+### Enhancements
+- [ ] Use a custom time/clock class for time inputs to wrap standard datetime ([details](https://www.linkedin.com/feed/update/urn:li:activity:7151131173627330560/))  
