@@ -8,11 +8,8 @@ class StatusDao:
         dbo.save()
         return dbo
 
-    def get_latest(
-        self, collector_id: int, is_frozen: bool, is_active: bool
-    ) -> Optional[Status]:
+    def get_latest(self, collector_id: int) -> Optional[Status]:
         return (
-            Status.objects.filter(
-                collector_id=collector_id, is_frozen=is_frozen, is_active=is_active
-            ).order_by("-created_at")
+            Status.objects.filter(collector_id=collector_id)
+            .order_by("-created_at")[0:1]
         ).first()

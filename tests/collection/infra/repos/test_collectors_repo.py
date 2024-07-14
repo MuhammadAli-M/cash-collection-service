@@ -95,9 +95,7 @@ class CollectorsRepoTest(TestCase):
         repo = CollectorsRepo(status_dao=status_dao_mock)
 
         # act
-        status = repo.get_latest_status(
-            collector_id=collector.id, is_frozen=True, is_active=False
-        )
+        status = repo.get_latest_status(collector_id=collector.id)
 
         # assert
         expected_status = status2
@@ -108,5 +106,5 @@ class CollectorsRepoTest(TestCase):
         self.assertEqual(status.created_at, expected_status.created_at)
         self.assertEqual(status.updated_at, expected_status.updated_at)
         status_dao_mock.get_latest.assert_called_once_with(
-            collector_id=collector.id, is_frozen=True, is_active=False
+            collector_id=collector.id
         )

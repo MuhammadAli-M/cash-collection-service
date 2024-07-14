@@ -26,12 +26,8 @@ class CollectorsRepo(ICollectorsRepo):
         dbo = self.dao.get_collector_by_user_id(user_id=user_id)
         return self.to_domain(dbo)
 
-    def get_latest_status(
-        self, collector_id: CollectorID, is_frozen: bool, is_active: bool
-    ) -> Optional[Status]:
-        status_dbo = self.status_dao.get_latest(
-            collector_id=collector_id, is_frozen=is_frozen, is_active=is_active
-        )
+    def get_latest_status(self, collector_id: CollectorID) -> Optional[Status]:
+        status_dbo = self.status_dao.get_latest(collector_id=collector_id)
         return self.status_converter.to_domain(status_dbo)
 
     def to_domain(self, dbo: CollectorDbo) -> Optional[Collector]:

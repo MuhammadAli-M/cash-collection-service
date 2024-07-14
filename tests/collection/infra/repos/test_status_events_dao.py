@@ -47,9 +47,7 @@ class StatusesDaoTest(TestCase):
         )
 
         # act
-        status = StatusDao().get_latest(
-            collector_id=collector1.id, is_active=True, is_frozen=True
-        )
+        status = StatusDao().get_latest(collector_id=collector1.id)
 
         # assert
         self.assertEqual(status, status3_c1)

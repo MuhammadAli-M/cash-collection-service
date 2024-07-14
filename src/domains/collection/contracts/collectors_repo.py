@@ -17,7 +17,5 @@ class ICollectorsRepo(ABC):
         raise NotImplemented()
 
     @abstractmethod
-    def get_latest_status(
-        self, collector_id: CollectorID, is_frozen: bool, is_active: bool
-    ) -> Optional[Status]:
+    def get_latest_status(self, collector_id: CollectorID) -> Optional[Status]:
         raise NotImplemented()
