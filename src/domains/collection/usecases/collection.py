@@ -1,3 +1,4 @@
+from django.db import transaction
 from pydantic import BaseModel
 
 from domains.collection.contracts.collectors_repo import ICollectorsRepo
@@ -21,8 +22,11 @@ class Collection:
         self.tasks_repo = tasks_repo
 
     def execute(self, request: CollectionRequest):
-        collector = self.get_collector_or_throw(request.user_id)
-        self.assert_collector_is_not_frozen_or_throw(collector.id)
+        with transaction.atomic():
+            collector = self.get_collector_or_throw(request.user_id)
+            self.assert_collector_is_not_frozen_or_throw(collector.id)
+
+
 
         # TODO finish this use case
 
