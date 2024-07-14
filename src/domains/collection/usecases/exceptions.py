@@ -8,6 +8,6 @@ from domains.collection.entities.task import CollectorID
 class CollectorNotFound(AssertionError):
     user_id: UserID
 
-
+@dataclass
 class FrozenCollector(AssertionError):
     collector_id: CollectorID

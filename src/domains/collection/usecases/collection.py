@@ -2,8 +2,10 @@ from pydantic import BaseModel
 
 from domains.collection.contracts.collectors_repo import ICollectorsRepo
 from domains.collection.contracts.tasks_repo import ITasksRepo
+from domains.collection.entities.collector import UserID
 from domains.collection.infra.repos.tasks_repo import TasksRepo
-from domains.collection.usecases.exceptions import CollectorNotFound
+from domains.collection.usecases.exceptions import CollectorNotFound, \
+    FrozenCollector
 
 
 class CollectionRequest(BaseModel):
@@ -19,15 +21,22 @@ class Collection:
         self.tasks_repo = tasks_repo
 
     def execute(self, request: CollectionRequest):
-        collector = self.collectors_repo.get_collector_by_user_id(
-            user_id=request.user_id)
-
-        self.assertExistingCollector(collector, request)
-        # TODO assert collector is not frozen
-        # TODO assert existing
+        collector = self.get_collector_or_throw(request.user_id)
+        self.assert_collector_is_not_frozen_or_throw(collector.id)
 
         # TODO finish this use case
 
-    def assertExistingCollector(self, collector, request):
+    def assert_collector_is_not_frozen_or_throw(self, collector_id):
+        status = self.collectors_repo.get_latest_status(
+            collector_id=collector_id)
+        if status.is_frozen_due():
+            raise FrozenCollector(collector_id=collector_id)
+
+    def get_collector_or_throw(self, user_id: UserID):
+        collector = self.collectors_repo.get_collector_by_user_id(
+            user_id=user_id)
+
         if collector is None:
-            raise CollectorNotFound(user_id=request.user_id)
+            raise CollectorNotFound(user_id=user_id)
+
+        return collector

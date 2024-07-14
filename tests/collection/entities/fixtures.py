@@ -1,5 +1,6 @@
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 
+from domains.collection.entities.collector import Collector
 from domains.collection.entities.status import Status
 from domains.collection.entities.task import Task
 from tests.collection.common.datetime_helper import get_datetime_after_week
@@ -21,6 +22,13 @@ def create_task(
     )
 
 
+def create_collector():
+    return Collector(
+        id=1,
+        amount=0,
+        user_id=2
+    )
+
 def create_status(
     is_frozen: bool,
     is_active: bool,
@@ -37,3 +45,11 @@ def create_status(
         created_at=created_at,
         udpated_at=updated_at,
     )
+
+
+def make_a_frozen_status(collector_id):
+    yesterday_time = datetime.now() - timedelta(days=1)
+    return create_status(collector_id=collector_id,
+                         is_frozen=True,
+                         is_active=True,
+                         due_at=yesterday_time)
