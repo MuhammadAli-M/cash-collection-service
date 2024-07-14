@@ -22,6 +22,10 @@ class CollectorsRepo(ICollectorsRepo):
         dbo = self.dao.get_collector(collector_id=collector_id)
         return self.to_domain(dbo)
 
+    def get_collector_by_user_id(self, user_id: int) -> Optional[Collector]:
+        dbo = self.dao.get_collector_by_user_id(user_id=user_id)
+        return self.to_domain(dbo)
+
     def get_latest_status(
         self, collector_id: CollectorID, is_frozen: bool, is_active: bool
     ) -> Optional[Status]:
@@ -41,7 +45,7 @@ class CollectorsRepo(ICollectorsRepo):
         return Collector(
             id=dbo.id,
             amount=dbo.amount,
-            user_id=dbo.user_id,
+            user_id=dbo.user.id,
             created_at=dbo.created_at,
             updated_at=dbo.updated_at,
         )

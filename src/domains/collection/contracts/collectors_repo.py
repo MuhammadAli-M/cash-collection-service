@@ -13,6 +13,10 @@ class ICollectorsRepo(ABC):
         raise NotImplemented()
 
     @abstractmethod
+    def get_collector_by_user_id(self, user_id: int) -> Optional[Collector]:
+        raise NotImplemented()
+
+    @abstractmethod
     def get_latest_status(
         self, collector_id: CollectorID, is_frozen: bool, is_active: bool
     ) -> Optional[Status]:
