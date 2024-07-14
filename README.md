@@ -23,6 +23,10 @@ As I don't know much about the context of collectors and managers such as:
 3. Are there any other differences between the collector and manager?
 
 I choose to simply represent them as two tables collectors and managers.
+
+### Assumptions
+- No partial collection. Collector collects the task's whole amount_due.
+
 ## Approaches
 
 We have a challenge here which is the future automatic freeze in addition to be
