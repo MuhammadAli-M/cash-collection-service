@@ -53,3 +53,28 @@ class TasksDaoTest(TestCase):
         # assert
         self.assertEqual(len(tasks), 1)
         self.assertEqual(tasks[0], task2_c1)
+
+    def test_get_task_works(self):
+        # arrange
+        user1 = create_user(suffix="1")
+        collector1 = create_collector(user=user1)
+        task1_c1 = Task.objects.create(
+            collector_id=collector1.id,
+            is_collected=True,
+            amount_due=50,
+            amount_due_at=get_datetime_after_week(),
+            customer=create_customer(),
+        )
+        task2_c1 = Task.objects.create(
+            collector_id=collector1.id,
+            is_collected=False,
+            amount_due=50,
+            amount_due_at=get_datetime_after_week(),
+            customer=create_customer(),
+        )
+
+        # act
+        task = TasksDao().get_task(id=task1_c1.id)
+
+        # assert
+        self.assertEqual(task, task1_c1)
