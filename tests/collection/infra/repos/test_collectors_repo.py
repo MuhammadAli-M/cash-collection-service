@@ -1,10 +1,12 @@
 from unittest import TestCase
 from unittest.mock import MagicMock, Mock
 
+from domains.collection.infra.repos.collector_dao import CollectorDao
 from domains.collection.infra.repos.collectors_repo import CollectorsRepo
 from domains.collection.infra.repos.status_dao import StatusDao
 from tests.collection.common.models_cleaner import clear_tasks, clear_users
-from tests.collection.infra.repos.fixtures import create_collector, create_status
+from tests.collection.infra.repos.fixtures import create_collector, \
+    create_status
 
 
 class CollectorsRepoTest(TestCase):
@@ -12,6 +14,40 @@ class CollectorsRepoTest(TestCase):
     def setUp(self):
         clear_tasks()
         clear_users()
+
+    def test_get_collector_works_if_existing(self):
+        # arrange
+        collectorDbo = create_collector()
+        dao_mock = Mock(spec=CollectorDao)
+        dao_mock.get_collector = MagicMock(return_value=collectorDbo)
+        repo = CollectorsRepo(dao=dao_mock)
+
+        # act
+        retrieved = repo.get_collector(collector_id=collectorDbo.id)
+
+        # assert
+        self.assertEqual(retrieved.id, collectorDbo.id)
+        self.assertEqual(retrieved.amount, collectorDbo.amount)
+        self.assertEqual(retrieved.user_id, collectorDbo.user_id)
+        self.assertEqual(retrieved.created_at, collectorDbo.created_at)
+        self.assertEqual(retrieved.updated_at, collectorDbo.updated_at)
+        dao_mock.get_collector.assert_called_once_with(collector_id=collectorDbo.id)
+
+    def test_get_collector_works_if_not_existing(self):
+        # arrange
+        dao_mock = Mock(spec=CollectorDao)
+        dao_mock.get_collector = MagicMock(return_value=None)
+        repo = CollectorsRepo(dao=dao_mock)
+
+        # act
+        arbitrary_non_existing_id = 100
+        retrieved = repo.get_collector(collector_id=arbitrary_non_existing_id)
+
+        # assert
+        self.assertEqual(retrieved, None)
+        dao_mock.get_collector.assert_called_once_with(
+            collector_id=arbitrary_non_existing_id)
+
 
     def test_get_latest_status_works(self):
         # arrange
