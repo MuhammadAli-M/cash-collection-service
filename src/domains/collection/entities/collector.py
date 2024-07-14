@@ -7,4 +7,3 @@ UserID = int
 class Collector(BaseEntity):
     amount: Money
     user_id: UserID
-    is_collected: bool = False
