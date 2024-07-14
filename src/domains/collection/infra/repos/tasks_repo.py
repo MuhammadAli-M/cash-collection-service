@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from domains.collection.contracts.tasks_repo import ITasksRepo
 from domains.collection.entities.task import Task
@@ -18,10 +18,18 @@ class TasksRepo(ITasksRepo):
         dbos = self.dao.get_tasks(user_id, is_collected)
         return [self.to_domain(dbo) for dbo in dbos]
 
-    def to_domain(self, dbo: TaskDbo) -> Task:
+    def get_task(self, id: int) -> Optional[Task]:
+        dbo = self.dao.get_task(id=id)
+        return self.to_domain(dbo)
+
+    def to_domain(self, dbo: TaskDbo) -> Optional[Task]:
         """
         Convert to domain entity
         """
+
+        if dbo is None:
+            return None
+
         return Task(
             id=dbo.id,
             amount_due=dbo.amount_due,

@@ -41,3 +41,32 @@ class TasksRepoTest(TestCase):
         # assert
         self.assertEqual(tasks, [task])
         dao_mock.get_tasks.assert_called_once_with(1, False)
+
+    def test_get_task_works_if_existing_task(self):
+        # arrange
+        task = create_task()
+        dao_mock = Mock(spec=TasksDao)
+        dao_mock.get_task = MagicMock(return_value=task)
+        repo = TasksRepo(dao=dao_mock)
+
+        # act
+        retrieved_task = repo.get_task(id=task.id)
+
+        # assert
+        self.assertEqual(retrieved_task, task)
+        dao_mock.get_task.assert_called_once_with(id=task.id)
+
+    def test_get_task_works_if_not_existing_task(self):
+        # arrange
+        dao_mock = Mock(spec=TasksDao)
+        dao_mock.get_task = MagicMock(return_value=None)
+        repo = TasksRepo(dao=dao_mock)
+
+        # act
+        arbitrary_non_existing_task_id = 100
+        retrieved_task = repo.get_task(id=arbitrary_non_existing_task_id)
+
+        # assert
+        self.assertEqual(retrieved_task, None)
+        dao_mock.get_task.assert_called_once_with(
+            id=arbitrary_non_existing_task_id)
