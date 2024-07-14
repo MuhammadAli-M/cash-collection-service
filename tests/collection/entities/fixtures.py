@@ -53,3 +53,9 @@ def make_a_frozen_status(collector_id):
                          is_frozen=True,
                          is_active=True,
                          due_at=yesterday_time)
+
+def make_a_not_frozen_status(collector_id):
+    return create_status(collector_id=collector_id,
+                         is_frozen=False,
+                         is_active=True,
+                         due_at=datetime.now())

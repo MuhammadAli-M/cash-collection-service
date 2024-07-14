@@ -6,12 +6,14 @@ from domains.collection.contracts.tasks_repo import ITasksRepo
 from domains.collection.entities.collector import UserID
 from domains.collection.infra.repos.tasks_repo import TasksRepo
 from domains.collection.usecases.exceptions import CollectorNotFound, \
-    FrozenCollector
+    FrozenCollector, TaskNotFound
 
 
 class CollectionRequest(BaseModel):
     user_id: int
     task_id: int
+
+
 
 
 class Collection:
@@ -26,6 +28,9 @@ class Collection:
             collector = self.get_collector_or_throw(request.user_id)
             self.assert_collector_is_not_frozen_or_throw(collector.id)
 
+            task = self.tasks_repo.get_task(request.task_id)
+            if task is None:
+                raise TaskNotFound(task_id=request.task_id)
 
 
         # TODO finish this use case
