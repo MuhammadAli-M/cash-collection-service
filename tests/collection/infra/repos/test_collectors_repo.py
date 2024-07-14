@@ -13,7 +13,7 @@ class CollectorsRepoTest(TestCase):
         clear_tasks()
         clear_users()
 
-    def test_get_tasks_works(self):
+    def test_get_latest_status_works(self):
         # arrange
         collector = create_collector()
         status1 = create_status(is_frozen=True, is_active=False, collector=collector)
