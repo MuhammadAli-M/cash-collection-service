@@ -1,6 +1,8 @@
 from unittest import TestCase
 from unittest.mock import MagicMock, Mock
 
+from domains.collection.entities.collector import Collector
+from domains.collection.infra.models.collector import Collector as CollectorDbo
 from domains.collection.infra.repos.collector_dao import CollectorDao
 from domains.collection.infra.repos.collectors_repo import CollectorsRepo
 from domains.collection.infra.repos.status_dao import StatusDao
@@ -13,6 +15,27 @@ class CollectorsRepoTest(TestCase):
     def setUp(self):
         clear_tasks()
         clear_users()
+
+    def test_save_collector_works(self):
+        collector = create_collector()
+        dao_mock = Mock(spec=CollectorDao)
+        collector_dbo_mock = self.get_mock(collector)
+        dao_mock.save_collector = MagicMock(return_value=collector_dbo_mock)
+        repo = CollectorsRepo(dao=dao_mock)
+
+        # act
+        retrieved = repo.save_collector(collector=collector)
+
+        # assert
+        self.assertEqual(retrieved.id, collector.id)
+        self.assertEqual(retrieved.amount, collector.amount)
+        self.assertEqual(retrieved.user_id, collector.user_id)
+        self.assertEqual(retrieved.created_at, collector.created_at)
+        self.assertEqual(retrieved.updated_at, collector.updated_at)
+        captured = dao_mock.save_collector.call_args[0][0]
+        self.assertEqual(captured.id, collector.id)
+        self.assertEqual(captured.amount, collector.amount)
+        self.assertEqual(captured.user_id, collector.user_id)
 
     def test_get_collector_works_if_existing(self):
         # arrange
@@ -106,3 +129,13 @@ class CollectorsRepoTest(TestCase):
         status_dao_mock.get_latest.assert_called_once_with(
             collector_id=collector.id
         )
+
+    @staticmethod
+    def get_mock(collector: Collector):
+        collector_dbo_mock = Mock(spec=CollectorDbo)
+        collector_dbo_mock.id = collector.id
+        collector_dbo_mock.amount = collector.amount
+        collector_dbo_mock.user_id = collector.user_id
+        collector_dbo_mock.created_at = collector.created_at
+        collector_dbo_mock.updated_at = collector.updated_at
+        return collector_dbo_mock

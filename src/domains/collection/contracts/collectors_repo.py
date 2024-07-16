@@ -9,6 +9,10 @@ from domains.collection.entities.task import CollectorID
 class ICollectorsRepo(ABC):
 
     @abstractmethod
+    def save_collector(self, collector: Collector) -> Collector:
+        raise NotImplemented()
+
+    @abstractmethod
     def get_collector(self, collector_id: int) -> Optional[Collector]:
         raise NotImplemented()
 

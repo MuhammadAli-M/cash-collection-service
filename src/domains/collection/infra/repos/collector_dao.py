@@ -7,6 +7,11 @@ from domains.collection.infra.models.collector import Collector
 
 
 class CollectorDao:
+
+    def save_collector(self, dbo: Collector) -> Collector:
+        dbo.save()
+        return dbo
+
     def get_collector(self, collector_id) -> Optional[Collector]:
         collector_id_filter = Q(id=collector_id)
         return self._get_single_collector(collector_id_filter)

@@ -18,6 +18,11 @@ class CollectorsRepo(ICollectorsRepo):
         self.status_dao = status_dao
         self.status_converter = status_converter
 
+    def save_collector(self, collector: Collector) -> Collector:
+        dbo = self.to_dbo(collector)
+        saved_dbo = self.dao.save_collector(dbo)
+        return self.to_domain(saved_dbo)
+
     def get_collector(self, collector_id: int) -> Optional[Collector]:
         dbo = self.dao.get_collector(collector_id=collector_id)
         return self.to_domain(dbo)
@@ -41,7 +46,24 @@ class CollectorsRepo(ICollectorsRepo):
         return Collector(
             id=dbo.id,
             amount=dbo.amount,
-            user_id=dbo.user.id,
+            user_id=dbo.user_id,
             created_at=dbo.created_at,
             updated_at=dbo.updated_at,
         )
+
+    def to_dbo(self, domain: Collector) -> CollectorDbo:
+        """
+        Convert to dbo entity
+        """
+
+        dbo = CollectorDbo(
+            amount=domain.amount,
+            user_id=domain.user_id,
+        )
+
+        if domain.id is not None:
+            dbo.id = domain.id
+            dbo.created_at = domain.created_at
+            dbo.updated_at = domain.updated_at
+
+        return dbo
