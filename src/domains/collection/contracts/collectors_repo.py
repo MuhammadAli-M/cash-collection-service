@@ -21,5 +21,9 @@ class ICollectorsRepo(ABC):
         raise NotImplemented()
 
     @abstractmethod
+    def save_status(self, status: Status) -> Status:
+        raise NotImplemented()
+
+    @abstractmethod
     def get_latest_status(self, collector_id: CollectorID) -> Optional[Status]:
         raise NotImplemented()

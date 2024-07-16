@@ -31,6 +31,12 @@ class CollectorsRepo(ICollectorsRepo):
         dbo = self.dao.get_collector_by_user_id(user_id=user_id)
         return self.to_domain(dbo)
 
+    def save_status(self, status: Status) -> Status:
+        dbo = self.status_converter.to_dbo(status)
+        saved_dbo = self.status_dao.save_status(dbo)
+        return self.status_converter.to_domain(saved_dbo)
+
+
     def get_latest_status(self, collector_id: CollectorID) -> Optional[Status]:
         status_dbo = self.status_dao.get_latest(collector_id=collector_id)
         return self.status_converter.to_domain(status_dbo)

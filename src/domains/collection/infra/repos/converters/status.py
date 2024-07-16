@@ -16,7 +16,7 @@ class StatusConverter:
 
         return Status(
             id=dbo.id,
-            collector_id=dbo.collector.id,
+            collector_id=dbo.collector_id,
             due_at=dbo.due_at,
             is_frozen=dbo.is_frozen,
             is_active=dbo.is_active,
@@ -28,11 +28,16 @@ class StatusConverter:
         """
         Convert to dbo(database object)
         """
-        return StatusDbo(
+        dbo = StatusDbo(
             collector_id=domain.collector_id,
             due_at=domain.due_at,
             is_frozen=domain.is_frozen,
             is_active=domain.is_active,
-            created_at=domain.created_at,
-            updated_at=domain.updated_at,
         )
+
+        if domain.id is not None:
+            dbo.id = domain.id
+            dbo.created_at = domain.created_at
+            dbo.updated_at = domain.updated_at
+
+        return dbo
