@@ -20,3 +20,6 @@ class Task(BaseEntity):
     customer_id: CustomerID
     collector_id: CollectorID
     is_collected: bool = False
+
+    def set_collected(self):
+        self.is_collected = True
