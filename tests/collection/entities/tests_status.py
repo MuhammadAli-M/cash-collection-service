@@ -38,3 +38,18 @@ class StatusTests(TestCase):
         )
 
         self.assertEqual(status.is_frozen_due(), False)
+
+    def test_is_freeze_safe_true_for_frozen_inactive(self):
+        frozen_inactive_status = create_status(is_frozen=True, is_active=False)
+
+        self.assertTrue(frozen_inactive_status.is_freeze_safe())
+
+    def test_is_freeze_safe_true_for_unfrozen_active(self):
+        unfrozen_active_status = create_status(is_frozen=False, is_active=True)
+
+        self.assertTrue(unfrozen_active_status.is_freeze_safe())
+
+    def test_is_freeze_safe_false_frozen_active(self):
+        frozen_active_status = create_status(is_frozen=True, is_active=True)
+
+        self.assertFalse(frozen_active_status.is_freeze_safe())
