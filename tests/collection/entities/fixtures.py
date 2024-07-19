@@ -22,10 +22,10 @@ def create_task(
     )
 
 
-def create_collector():
+def create_collector(amount=0):
     return Collector(
         id=1,
-        amount=0,
+        amount=amount,
         user_id=2
     )
 
