@@ -130,3 +130,7 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "collection.User"
+
+# TODO: Read from environment variables
+COLLECTION_FREEZE_AMOUNT: int = 5000
+FREEZE_TOLERANCE_IN_DAYS: int = 2
