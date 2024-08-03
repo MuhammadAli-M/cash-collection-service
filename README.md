@@ -79,22 +79,27 @@ With each freeze validation, we add freeze event, or do nothing if it's paid.
 ## Use Cases for Approach 1
 
 ### collect
-Assert CashCollector is not frozen by checking [is_frozen](#is_frozen),
-otherwise, we reject the collection.
+Assert CashCollector is not frozen by checking [is_frozen](#is_frozen), otherwise, we reject the collection.
 
-If it's not due yet, we proceed by do the following in a _transaction_:
+We proceed by do the following in a _transaction_:
 
 - Set task `is_collected` True
 - Increase collector's `collected`
 - Check the collected amount:
     1. If it does not exceed 5000, we do nothing
     2. If it exceeded 5000 && the latest event is a freeze but not active or an
-       unfreeze event but active, we add a freeze event.
+       unfreeze event but active, we add a freeze event. [details](#details)
 
 - Get the task with the most recent passed amount_due_at and also this task is
   not assigned to a collector. Assign this task to the collector. (I do this
   assignment to avoid conflict between collector but also this also could
   increase the task latency if the assigned collector is frozen.)
+
+##### details
+case1: There latest is an active freeze but due in the future, we do nothing
+case2: There latest is an inactive freeze, we add a future freeze event
+case2: There latest is an unfreeze active, we add a future freeze event
+
 ### pay
 We do the following in a _transaction_:
 
@@ -112,7 +117,7 @@ Get the task assigned to the collector with `is_collected` False. (we made the a
 
 #### is_frozen
 
-Checking the latest active event. If it's freeze event and already due, then
+Checking the latest event. If it's an active freeze event and already due, then
 it's frozen.
 
 ## Deliverables
