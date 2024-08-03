@@ -24,7 +24,7 @@ class Status(BaseEntity):
     @staticmethod
     def make_future_freeze_status(collector_id):
         future_freeze_date = (datetime.now() +
-                              timedelta(settings.FREEZE_TOLERANCE_IN_DAYS))
+                              timedelta(days=settings.FREEZE_TOLERANCE_IN_DAYS))
         return Status(collector_id=collector_id,
                       is_frozen=True,
                       is_active=True,
