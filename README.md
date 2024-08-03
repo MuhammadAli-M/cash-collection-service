@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repo is a solution implementation to the cash collector problem.
+This repo is a solution implementation to the [cash collector problem](docs/problem.md).
 
 ### Contents
 
